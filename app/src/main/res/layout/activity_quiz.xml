@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:fadeScrollbars="true"
-              android:gravity="center_vertical|center_horizontal">
+              android:gravity="center_vertical|center_horizontal"
+              android:weightSum="1">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:id="@+id/questionImage"
+        android:layout_weight="0.43"/>
 
     <TextView
         android:text="@string/app_name"

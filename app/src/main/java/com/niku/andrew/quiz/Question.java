@@ -9,9 +9,16 @@ public class Question {
     private int mQuestionText;
     private boolean mAnswerTrue;
 
-    public Question(int questionText, boolean answerTrue) {
+    public int getImageResIs() {
+        return mImageResIs;
+    }
+
+    private int mImageResIs;
+
+    public Question(int questionText, boolean answerTrue, int ImageResIs) {
         mQuestionText = questionText;
         mAnswerTrue = answerTrue;
+        mImageResIs = ImageResIs;
     }
 
     public int getQuestionText() {

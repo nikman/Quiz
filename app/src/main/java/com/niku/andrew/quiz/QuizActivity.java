@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +19,18 @@ public class QuizActivity extends AppCompatActivity {
     private final String TAG = "QuizActivity";
 
     private TextView mQuestionTextView;
+    private ImageView mQuestionImage;
 
     private Question[] mQuestionBank = new Question[]{
-            new Question(R.string.question_text_1, true),
-            new Question(R.string.question_text_2, false),
-            new Question(R.string.question_text_3, false)
+            new Question(R.string.question_text_1,
+                    true,
+                    R.drawable.pacific),
+            new Question(R.string.question_text_2,
+                    false,
+                    R.drawable.Nile),
+            new Question(R.string.question_text_3,
+                    false,
+                    R.drawable.en_city_of_constantinople)
     };
 
     public int getCurrentIndex() {
@@ -49,6 +57,9 @@ public class QuizActivity extends AppCompatActivity {
 
         mQuestionTextView = (TextView) findViewById(R.id.questionText);
         updateQuestionText();
+
+        mQuestionImage = (ImageView) findViewById(R.id.questionImage);
+        updateQuestionImage();
 
         //(Button) findViewById(R.id.btnNext).
 
@@ -105,6 +116,11 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setText(question);
     }
 
+    private void updateQuestionImage() {
+        int questionImageId = mQuestionBank[mCurrentIndex].getImageResIs();
+        mQuestionImage.setImageResource(questionImageId);
+    }
+
     private void checkAnswer(boolean userPressedTrue) {
 
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
@@ -154,6 +170,7 @@ public class QuizActivity extends AppCompatActivity {
             setCurrentIndex(0);
         }
         updateQuestionText();
+        updateQuestionImage();
 
     }
 
@@ -166,6 +183,7 @@ public class QuizActivity extends AppCompatActivity {
             setCurrentIndex(mQuestionBank.length - 1);
         }
         updateQuestionText();
+        updateQuestionImage();
 
     }
 
