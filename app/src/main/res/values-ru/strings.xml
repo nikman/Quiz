@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Викторина</string>
+    <string name="btnTrueText">Да</string>
+    <string name="btnFalseText">Нет</string>
+    <string name="btnNextText">Далее</string>
+    <string name="message_correct">Правильно!</string>
+    <string name="message_incorrect">Не правильно!</string>
+    <string name="question_text_1">Тихий океан больше чем Атлантический океан</string>
+    <string name="question_text_2">Исток реки Нил находится в Египте</string>
+    <string name="btnPrevText">Назад</string>
+    <string name="question_text_3">Константинополь - крупнейший город Турции</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fadeScrollbars="true"
+              android:gravity="center_vertical|center_horizontal">
+
+    <TextView
+        android:text="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/questionText"
+        android:gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/btnFalseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnFalse"
+            android:layout_weight="1"
+            android:onClick="btnFalseOnClick"
+            android:layout_marginLeft="@dimen/btn_margin"
+            android:layout_marginRight="@dimen/btn_margin"/>
+
+        <Button
+            android:text="@string/btnTrueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnTrue"
+            android:layout_weight="1"
+            android:onClick="btnTrueOnClick"
+            android:layout_marginRight="@dimen/btn_margin"
+            android:layout_marginLeft="@dimen/btn_margin"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/btn_margin">
+
+        <ImageButton
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnPrev"
+            android:layout_weight="1"
+            android:onClick="btnPrevOnClick"
+            android:src="@drawable/arrow_left"
+            android:contentDescription="@string/btnPrevText"
+            android:layout_marginLeft="@dimen/btn_margin"
+            android:layout_marginRight="@dimen/btn_margin"/>
+
+        <ImageButton
+            android:text="@string/btnNextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNext"
+            android:layout_weight="1"
+            android:onClick="btnNextOnClick"
+            android:src="@drawable/arrow_right"
+            android:contentDescription="@string/btnNextText"
+            android:layout_marginRight="@dimen/btn_margin"
+            android:layout_marginLeft="@dimen/btn_margin"/>
+
+    </LinearLayout>
+</LinearLayout>

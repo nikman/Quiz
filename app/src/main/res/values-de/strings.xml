@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="btnTrueText">Richtig</string>
+    <string name="btnFalseText">Falsch</string>
+    <string name="btnNextText">Weiter</string>
+    <string name="message_correct">Korrekt!</string>
+    <string name="message_incorrect">Nicht korrekt!</string>
+    <string name="question_text_1">Der Stille Ozean ist grosser als der Atlantische Ozean</string>
+    <string name="question_text_2">Die Quelle des Nils befindet sich in Ägypten</string>
+    <string name="btnPrevText">Zuruck</string>
+    <string name="question_text_3">Konstantinopel ist die grosse Stadt von Turkei</string>
+</resources>

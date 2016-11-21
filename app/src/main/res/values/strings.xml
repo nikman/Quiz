@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="btnTrueText">True</string>
+    <string name="btnFalseText">False</string>
+    <string name="btnNextText">Next</string>
+    <string name="message_correct">Correct!</string>
+    <string name="message_incorrect">Incorrect!</string>
+    <string name="question_text_1">The Pacific Ocean is larger than the Atlantic Ocean</string>
+    <string name="question_text_2">The source of the Nile River is in Egypt</string>
+    <string name="btnPrevText">Prev</string>
+    <string name="question_text_3">Constantinople is the largest city in Turkey</string>
+</resources>
