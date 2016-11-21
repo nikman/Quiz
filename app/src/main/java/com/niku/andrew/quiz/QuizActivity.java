@@ -22,6 +22,7 @@ public class QuizActivity extends AppCompatActivity {
     private ImageView mQuestionImage;
 
     private Question[] mQuestionBank = new Question[]{
+
             new Question(R.string.question_text_1,
                     true,
                     R.drawable.pacific),
