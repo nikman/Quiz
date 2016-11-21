@@ -18,6 +18,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private final String TAG = "QuizActivity";
 
+    //private static String LOADER_IMAGE_LOAD_ID = 1;
+
     private TextView mQuestionTextView;
     private ImageView mQuestionImage;
 
@@ -31,7 +33,10 @@ public class QuizActivity extends AppCompatActivity {
                     R.drawable.nile),
             new Question(R.string.question_text_3,
                     false,
-                    R.drawable.en_city_of_constantinople)
+                    R.drawable.en_city_of_constantinople),
+            /*new Question(R.string.question_text_3,
+                    false,
+                    R.drawable.byzantine_constantinople_en)*/
     };
 
     public int getCurrentIndex() {
@@ -60,11 +65,11 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestionText();
 
         mQuestionImage = (ImageView) findViewById(R.id.questionImage);
-        updateQuestionImage();
-
-        //(Button) findViewById(R.id.btnNext).
-
-//        mButtonFalse = (Button) findViewById(R.id.btnFalse);
+        //updateQuestionImage();
+        WorkingClass workingClass = new WorkingClass();
+        /*Thread thread = new Thread(workingClass);
+        thread.start();*/
+        this.runOnUiThread(workingClass);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -117,10 +122,10 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setText(question);
     }
 
-    private void updateQuestionImage() {
+    /*private void updateQuestionImage() {
         int questionImageId = mQuestionBank[mCurrentIndex].getImageResIs();
         mQuestionImage.setImageResource(questionImageId);
-    }
+    }*/
 
     private void checkAnswer(boolean userPressedTrue) {
 
@@ -171,7 +176,10 @@ public class QuizActivity extends AppCompatActivity {
             setCurrentIndex(0);
         }
         updateQuestionText();
-        updateQuestionImage();
+        //updateQuestionImage();
+        WorkingClass workingClass = new WorkingClass();
+        Thread thread = new Thread(workingClass);
+        thread.start();
 
     }
 
@@ -184,8 +192,43 @@ public class QuizActivity extends AppCompatActivity {
             setCurrentIndex(mQuestionBank.length - 1);
         }
         updateQuestionText();
-        updateQuestionImage();
+        //updateQuestionImage();
+        WorkingClass workingClass = new WorkingClass();
+        Thread thread = new Thread(workingClass);
+        thread.start();
 
     }
 
+    class WorkingClass implements Runnable {
+
+        @Override
+        public void run() {
+            mQuestionImage.post(new Runnable() {
+                @Override
+                public void run() {
+                    int questionImageId = mQuestionBank[mCurrentIndex].getImageResIs();
+                    mQuestionImage.setImageResource(questionImageId);
+                    Log.d(TAG, "Loading image...");
+                }
+            });
+        }
+    }
+
+    /*@Override
+    public Loader<Integer> onCreateLoader(int id, Bundle args) {
+
+        //Integer i = (Integer) id;
+
+        return new Integer(id);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Integer> loader, Integer data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Integer> loader) {
+
+    }*/
 }
