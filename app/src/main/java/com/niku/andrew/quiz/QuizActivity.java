@@ -17,10 +17,6 @@ public class QuizActivity extends AppCompatActivity {
 
     private final String TAG = "QuizActivity";
 
-    /*private Button mButtonTrue;
-    private Button mButtonFalse;
-    private Button mButtonNext;
-    private Button mButtonPrev;*/
     private TextView mQuestionTextView;
 
     private Question[] mQuestionBank = new Question[]{
