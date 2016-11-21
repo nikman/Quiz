@@ -10,10 +10,9 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="239dp"
         app:srcCompat="@android:drawable/sym_def_app_icon"
-        android:id="@+id/questionImage"
-        android:layout_weight="0.43"/>
+        android:id="@+id/questionImage" />
 
     <TextView
         android:text="@string/app_name"

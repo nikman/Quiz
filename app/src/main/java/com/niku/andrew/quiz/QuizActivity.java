@@ -28,7 +28,7 @@ public class QuizActivity extends AppCompatActivity {
                     R.drawable.pacific),
             new Question(R.string.question_text_2,
                     false,
-                    R.drawable.Nile),
+                    R.drawable.nile),
             new Question(R.string.question_text_3,
                     false,
                     R.drawable.en_city_of_constantinople)
