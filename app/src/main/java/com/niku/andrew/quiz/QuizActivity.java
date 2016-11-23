@@ -1,11 +1,14 @@
 package com.niku.andrew.quiz;
 
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +21,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private final String TAG = "QuizActivity";
     private final String KEY_INDEX = "index";
+    private int CountDown = R.integer.MaxSecondsPerQuestion;
     private TextView mQuestionTextView;
     private ImageView mQuestionImage;
+    private ProgressBar mProgressBar;
 
     private Question[] mQuestionBank = new Question[]{
 
@@ -58,6 +63,8 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "OnCreate() called");
         setContentView(R.layout.activity_quiz);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
@@ -123,6 +130,11 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestionText() {
         int question = mQuestionBank[mCurrentIndex].getQuestionText();
         mQuestionTextView.setText(question);
+
+        /*WorkingClassProgressUpdate workingClassProgressUpdate = new WorkingClassProgressUpdate();
+        Thread thread = new Thread(workingClassProgressUpdate);
+        thread.start();*/
+        //new Thread(new WorkingClass()).start();
     }
 
     /*private void updateQuestionImage() {
@@ -180,9 +192,11 @@ public class QuizActivity extends AppCompatActivity {
         }
         updateQuestionText();
         //updateQuestionImage();
-        WorkingClass workingClass = new WorkingClass();
+        /*WorkingClass workingClass = new WorkingClass();
         Thread thread = new Thread(workingClass);
-        thread.start();
+        thread.start();*/
+        new Thread(new WorkingClass()).start();
+        new Thread(new WorkingClassProgressUpdate());
 
     }
 
@@ -196,9 +210,11 @@ public class QuizActivity extends AppCompatActivity {
         }
         updateQuestionText();
         //updateQuestionImage();
-        WorkingClass workingClass = new WorkingClass();
+        /*WorkingClass workingClass = new WorkingClass();
         Thread thread = new Thread(workingClass);
-        thread.start();
+        thread.start();*/
+        new Thread(new WorkingClass()).start();
+        new Thread(new WorkingClassProgressUpdate());
 
     }
 
@@ -209,13 +225,49 @@ public class QuizActivity extends AppCompatActivity {
             mQuestionImage.post(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d(TAG, "Loading image...");
                     int questionImageId = mQuestionBank[mCurrentIndex].getImageResIs();
                     mQuestionImage.setImageResource(questionImageId);
-                    Log.d(TAG, "Loading image...");
+                    Log.d(TAG, "Image loaded");
                 }
             });
         }
     }
+
+    class WorkingClassProgressUpdate implements Runnable {
+
+        public static final int RELAUNCH = 1;
+        private static final int DELAY = 1000;
+
+        @Override
+        public void run() {
+            mProgressBar.post(new Runnable() {
+                @Override
+                public void run() {
+                    /*int x = R.integer.MaxSecondsPerQuestion;
+                    while (x > 0) {
+                        mProgressBar.setProgress(--x);
+                        //Sleep(1000);
+                    }*/
+                    if (CountDown > 0) {
+                        mProgressBar.setProgress(--CountDown);
+                    }
+                    uiHandler.sendEmptyMessageDelayed(RELAUNCH, DELAY);
+                }
+            });
+        }
+    }
+
+    Handler uiHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            if (message.what == WorkingClassProgressUpdate.RELAUNCH) {
+                new Thread(new WorkingClassProgressUpdate());
+                return true;
+            }
+            return false;
+        }
+    });
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
