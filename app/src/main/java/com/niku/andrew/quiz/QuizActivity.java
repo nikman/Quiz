@@ -17,9 +17,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class QuizActivity extends AppCompatActivity {
 
     private final String TAG = "QuizActivity";
-
-    //private static String LOADER_IMAGE_LOAD_ID = 1;
-
+    private final String KEY_INDEX = "index";
     private TextView mQuestionTextView;
     private ImageView mQuestionImage;
 
@@ -60,6 +58,11 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "OnCreate() called");
         setContentView(R.layout.activity_quiz);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            Log.d(TAG, "Restoring index " + mCurrentIndex);
+        }
 
         mQuestionTextView = (TextView) findViewById(R.id.questionText);
         updateQuestionText();
@@ -212,6 +215,13 @@ public class QuizActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
     /*@Override
