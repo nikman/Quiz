@@ -7,6 +7,13 @@
               android:fadeScrollbars="true"
               android:gravity="center_vertical|center_horizontal"
               android:weightSum="1">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:max="@integer/MaxSecondsPerQuestion"
+        android:progress="@integer/MaxSecondsPerQuestion"/>
 
     <TextView
         android:text="@string/app_name"
