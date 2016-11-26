@@ -5,7 +5,7 @@ package com.niku.andrew.quiz;
  */
 public class DBCore {
 
-    private static DBCore ourInstance = new DBCore();
+    private static final DBCore ourInstance = new DBCore();
 
     public static DBCore getInstance() {
         return ourInstance;

@@ -21,7 +21,11 @@ public class QuizActivity extends AppCompatActivity {
 
     private final String TAG = "QuizActivity";
     private final String KEY_INDEX = "index";
-    private int CountDown = R.integer.MaxSecondsPerQuestion;
+
+//    private Integer CountDown = R.integer.MaxSecondsPerQuestion;
+    private Integer mCountDownSeconds = 10;
+    private Thread threadCounter;
+
     private TextView mQuestionTextView;
     private ImageView mQuestionImage;
     private ProgressBar mProgressBar;
@@ -46,7 +50,7 @@ public class QuizActivity extends AppCompatActivity {
         return mCurrentIndex;
     }
 
-    public void setCurrentIndex(int currentIndex) {
+    private void setCurrentIndex(int currentIndex) {
         mCurrentIndex = currentIndex;
     }
 
@@ -75,15 +79,15 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestionText();
 
         mQuestionImage = (ImageView) findViewById(R.id.questionImage);
-        //updateQuestionImage();
-        WorkingClass workingClass = new WorkingClass();
-        /*Thread thread = new Thread(workingClass);
-        thread.start();*/
-        this.runOnUiThread(workingClass);
+
+        this.runOnUiThread(new WorkingClass());
+        this.runOnUiThread(new WorkingClassProgressUpdate());
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        Log.d(TAG, "onCreate(), CountDownSeconds = " + mCountDownSeconds.toString());
     }
 
     @Override
@@ -130,23 +134,13 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestionText() {
         int question = mQuestionBank[mCurrentIndex].getQuestionText();
         mQuestionTextView.setText(question);
-
-        /*WorkingClassProgressUpdate workingClassProgressUpdate = new WorkingClassProgressUpdate();
-        Thread thread = new Thread(workingClassProgressUpdate);
-        thread.start();*/
-        //new Thread(new WorkingClass()).start();
     }
-
-    /*private void updateQuestionImage() {
-        int questionImageId = mQuestionBank[mCurrentIndex].getImageResIs();
-        mQuestionImage.setImageResource(questionImageId);
-    }*/
 
     private void checkAnswer(boolean userPressedTrue) {
 
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
-        int messageResId = 0;
+        int messageResId;
 
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.message_correct;
@@ -184,6 +178,11 @@ public class QuizActivity extends AppCompatActivity {
 
     public void btnNextOnClick(View view) {
 
+        /*if (threadImageLoader != null) {
+            threadImageLoader.interrupt();
+            threadImageLoader = null;
+        }*/
+
         if (mCurrentIndex < mQuestionBank.length - 1) {
             setCurrentIndex(mCurrentIndex + 1);
         }
@@ -191,12 +190,11 @@ public class QuizActivity extends AppCompatActivity {
             setCurrentIndex(0);
         }
         updateQuestionText();
-        //updateQuestionImage();
-        /*WorkingClass workingClass = new WorkingClass();
-        Thread thread = new Thread(workingClass);
-        thread.start();*/
-        new Thread(new WorkingClass()).start();
-        new Thread(new WorkingClassProgressUpdate());
+
+        Thread threadImageLoader = new Thread(new WorkingClass());
+        threadImageLoader.start();
+        mCountDownSeconds = 10;
+        new Thread(new WorkingClassProgressUpdate()).start();
 
     }
 
@@ -209,16 +207,14 @@ public class QuizActivity extends AppCompatActivity {
             setCurrentIndex(mQuestionBank.length - 1);
         }
         updateQuestionText();
-        //updateQuestionImage();
-        /*WorkingClass workingClass = new WorkingClass();
-        Thread thread = new Thread(workingClass);
-        thread.start();*/
+
         new Thread(new WorkingClass()).start();
-        new Thread(new WorkingClassProgressUpdate());
+        mCountDownSeconds = 10;
+        new Thread(new WorkingClassProgressUpdate()).start();
 
     }
 
-    class WorkingClass implements Runnable {
+    private class WorkingClass implements Runnable {
 
         @Override
         public void run() {
@@ -241,28 +237,31 @@ public class QuizActivity extends AppCompatActivity {
 
         @Override
         public void run() {
+            Log.d(TAG, "-------");
+            //Log.d(TAG, String.format("id=%d", threadCounter.getId()));
+            Log.d(TAG, mCountDownSeconds.toString());
+
             mProgressBar.post(new Runnable() {
                 @Override
                 public void run() {
-                    /*int x = R.integer.MaxSecondsPerQuestion;
-                    while (x > 0) {
-                        mProgressBar.setProgress(--x);
-                        //Sleep(1000);
-                    }*/
-                    if (CountDown > 0) {
-                        mProgressBar.setProgress(--CountDown);
+
+                    //Log.d(TAG, new Integer(mCountDownSeconds).toString());
+                    if (mCountDownSeconds > 0) {
+                        mProgressBar.setProgress(--mCountDownSeconds);
                     }
-                    uiHandler.sendEmptyMessageDelayed(RELAUNCH, DELAY);
                 }
             });
+            uiHandler.sendEmptyMessageDelayed(RELAUNCH, DELAY);
         }
     }
 
-    Handler uiHandler = new Handler(new Handler.Callback() {
+    private Handler uiHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            if (message.what == WorkingClassProgressUpdate.RELAUNCH) {
-                new Thread(new WorkingClassProgressUpdate());
+            Log.d(TAG, "-------");
+            Log.d(TAG, mCountDownSeconds.toString());
+            if (message.what == WorkingClassProgressUpdate.RELAUNCH && mCountDownSeconds > 0) {
+                new Thread(new WorkingClassProgressUpdate()).start();
                 return true;
             }
             return false;

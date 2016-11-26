@@ -4,7 +4,7 @@ package com.niku.andrew.quiz;
  * Created by andrew on 12.11.16.
  */
 
-public class Question {
+class Question {
 
     private int mQuestionText;
     private boolean mAnswerTrue;

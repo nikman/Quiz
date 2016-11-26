@@ -9,4 +9,10 @@
     <string name="question_text_2">The source of the Nile River is in Egypt</string>
     <string name="btnPrevText">Prev</string>
     <string name="question_text_3">Constantinople is the largest city in Turkey</string>
+    <string name="question_image_description">"Question image"</string>
+    <string name="warning_text" translatable="false">Are you sure you want to do this?</string>
+    <string name="show_answer_button_caption">Show answer</string>
+    <string name="cheat_button">Cheat!</string>
+    <string name="judgment_toast_text">Cheating is wrong</string>
+    <string name="title_activity_cheat">Cheat</string>
 </resources>
