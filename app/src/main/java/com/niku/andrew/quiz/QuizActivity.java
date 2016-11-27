@@ -1,5 +1,6 @@
 package com.niku.andrew.quiz;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -275,21 +276,9 @@ public class QuizActivity extends AppCompatActivity {
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
-    /*@Override
-    public Loader<Integer> onCreateLoader(int id, Bundle args) {
-
-        //Integer i = (Integer) id;
-
-        return new Integer(id);
+    public void btnCheatOnClick(View view) {
+        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+        Intent intent = CheatActivity.newIntent(getApplicationContext(), answerIsTrue);
+        startActivity(intent);
     }
-
-    @Override
-    public void onLoadFinished(Loader<Integer> loader, Integer data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Integer> loader) {
-
-    }*/
 }

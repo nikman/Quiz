@@ -52,7 +52,15 @@
                     android:layout_weight="1"
                     android:onClick="btnFalseOnClick"
                     android:layout_marginLeft="@dimen/btn_margin"
-                    android:layout_marginRight="@dimen/btn_margin"/>
+                    android:layout_marginRight="@dimen/btn_margin"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button_cheat"
+                    android:text="@string/cheat_button"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
 
                 <Button
                     android:text="@string/btnTrueText"
@@ -62,7 +70,9 @@
                     android:layout_weight="1"
                     android:onClick="btnTrueOnClick"
                     android:layout_marginRight="@dimen/btn_margin"
-                    android:layout_marginLeft="@dimen/btn_margin"/>
+                    android:layout_marginLeft="@dimen/btn_margin"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -98,6 +108,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

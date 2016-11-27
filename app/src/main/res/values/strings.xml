@@ -14,5 +14,6 @@
     <string name="show_answer_button_caption">Show answer</string>
     <string name="cheat_button">Cheat!</string>
     <string name="judgment_toast_text">Cheating is wrong</string>
-    <string name="title_activity_cheat">Cheat</string>
+    <string name="title_activity_cheat" translatable="false">Cheat</string>
+    <string name="answer_text">Answer</string>
 </resources>

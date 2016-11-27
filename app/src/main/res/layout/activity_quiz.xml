@@ -58,6 +58,15 @@
             style="@style/Widget.AppCompat.Button.Borderless" />
     </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/button_cheat"
+        android:text="@string/cheat_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:onClick="btnCheatOnClick"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -74,7 +83,7 @@
             android:src="@drawable/arrow_left"
             android:contentDescription="@string/btnPrevText"
             android:layout_marginLeft="@dimen/btn_margin"
-            android:layout_marginRight="@dimen/btn_margin"/>
+            android:layout_marginRight="@dimen/btn_margin" />
 
         <ImageButton
             android:text="@string/btnNextText"

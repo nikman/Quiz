@@ -13,24 +13,23 @@
     tools:context="com.niku.andrew.quiz.CheatActivity"
     tools:showIn="@layout/activity_cheat">
 
-
     <TextView
         android:text="@string/warning_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/warning_text"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp"
-        android:id="@+id/warning_text" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        tools:text="Answer"
+        tools:text="@string/answer_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/answer_text"
         android:layout_below="@+id/warning_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"
-        android:id="@+id/answer_text" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="@string/show_answer_button_caption"
@@ -39,7 +38,6 @@
         android:layout_below="@+id/answer_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
-        android:id="@+id/show_answer_button"
-        android:onClick="btnShowAnswerOnClick"/>
+        android:id="@+id/show_answer_button" />
 
 </RelativeLayout>
