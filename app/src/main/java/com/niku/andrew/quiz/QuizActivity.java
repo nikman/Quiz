@@ -1,5 +1,6 @@
 package com.niku.andrew.quiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
@@ -21,11 +22,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class QuizActivity extends AppCompatActivity {
 
     private final String TAG = "QuizActivity";
-    private final String KEY_INDEX = "index";
+    private final String KEY_INDEX_QUESTION_ID = "index_question_id";
+    private final String KEY_INDEX_IS_CHEATER = "index_is_cheater";
+    private final int REQUEST_CODE_CHEAT = 0;
 
-//    private Integer CountDown = R.integer.MaxSecondsPerQuestion;
+    private int mCurrentIndex;
+    private boolean mIsCheater;
+    //private Integer CountDown = R.integer.MaxSecondsPerQuestion;
     private Integer mCountDownSeconds = 10;
-    private Thread threadCounter;
+    //private Thread threadCounter;
 
     private TextView mQuestionTextView;
     private ImageView mQuestionImage;
@@ -47,15 +52,14 @@ public class QuizActivity extends AppCompatActivity {
                     R.drawable.byzantine_constantinople_en)*/
     };
 
-    public int getCurrentIndex() {
+    /*public int getCurrentIndex() {
         return mCurrentIndex;
-    }
+    }*/
 
     private void setCurrentIndex(int currentIndex) {
         mCurrentIndex = currentIndex;
     }
 
-    private int mCurrentIndex;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -72,8 +76,10 @@ public class QuizActivity extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (savedInstanceState != null) {
-            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX_QUESTION_ID, 0);
             Log.d(TAG, "Restoring index " + mCurrentIndex);
+            mIsCheater = savedInstanceState.getBoolean(KEY_INDEX_IS_CHEATER, false);
+            Log.d(TAG, "Restoring Is cheater flag " + mIsCheater);
         }
 
         mQuestionTextView = (TextView) findViewById(R.id.questionText);
@@ -133,6 +139,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void updateQuestionText() {
+        mIsCheater = false;
         int question = mQuestionBank[mCurrentIndex].getQuestionText();
         mQuestionTextView.setText(question);
     }
@@ -143,10 +150,15 @@ public class QuizActivity extends AppCompatActivity {
 
         int messageResId;
 
-        if (userPressedTrue == answerIsTrue) {
-            messageResId = R.string.message_correct;
+        if (mIsCheater) {
+            messageResId = R.string.judgment_toast_text;
         } else {
-            messageResId = R.string.message_incorrect;
+
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.message_correct;
+            } else {
+                messageResId = R.string.message_incorrect;
+            }
         }
 
         Toast.makeText(getApplicationContext(), messageResId, Toast.LENGTH_SHORT)
@@ -259,8 +271,8 @@ public class QuizActivity extends AppCompatActivity {
     private Handler uiHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            Log.d(TAG, "-------");
-            Log.d(TAG, mCountDownSeconds.toString());
+            //Log.d(TAG, "-------");
+            //Log.d(TAG, mCountDownSeconds.toString());
             if (message.what == WorkingClassProgressUpdate.RELAUNCH && mCountDownSeconds > 0) {
                 new Thread(new WorkingClassProgressUpdate()).start();
                 return true;
@@ -273,12 +285,36 @@ public class QuizActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
-        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putInt(KEY_INDEX_QUESTION_ID, mCurrentIndex);
+        savedInstanceState.putBoolean(KEY_INDEX_IS_CHEATER, mIsCheater);
     }
 
     public void btnCheatOnClick(View view) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         Intent intent = CheatActivity.newIntent(getApplicationContext(), answerIsTrue);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_CHEAT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (mQuestionBank[mCurrentIndex].isQuestionCheated()) {
+            mIsCheater = true;
+            return;
+        }
+
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
+
+        mQuestionBank[mCurrentIndex].setQuestionCheated(mIsCheater);
+
     }
 }

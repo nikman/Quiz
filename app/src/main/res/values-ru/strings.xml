@@ -9,7 +9,6 @@
     <string name="question_text_2">Исток реки Нил находится в Египте</string>
     <string name="btnPrevText">Назад</string>
     <string name="question_text_3">Константинополь - крупнейший город Турции</string>
-    <string name="question_image_description" translatable="false">Картинка к вопросу</string>
     <string name="cheat_button">Сжульничать</string>
     <string name="judgment_toast_text">Жульничать не хорошо</string>
     <string name="show_answer_button_caption" translatable="false">Показать ответ</string>

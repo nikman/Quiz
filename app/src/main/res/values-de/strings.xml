@@ -9,8 +9,7 @@
     <string name="question_text_2">Die Quelle des Nils befindet sich in Ägypten</string>
     <string name="btnPrevText">Zuruck</string>
     <string name="question_text_3">Konstantinopel ist die große Stadt von Turkei</string>
-    <string name="question_image_description" translatable="false">Frage Bild</string>
     <string name="cheat_button">Schwindeln!</string>
     <string name="judgment_toast_text">Schwindeln ist schlecht</string>
-    <string name="show_answer_button_caption" translatable="false">Zeig die Antwort</string>
+    <string name="show_answer_button_caption" translatable="false">Zeigen Sie bitte die Antwort</string>
 </resources>

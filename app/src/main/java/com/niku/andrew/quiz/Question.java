@@ -8,12 +8,28 @@ class Question {
 
     private int mQuestionText;
     private boolean mAnswerTrue;
+    private boolean mQuestionCheated;
+
+    public void setQuestionCheated(boolean questionCheated) {
+        mQuestionCheated = questionCheated;
+    }
+
+    public boolean isQuestionCheated() {
+        return mQuestionCheated;
+    }
 
     public int getImageResIs() {
         return mImageResIs;
     }
 
     private int mImageResIs;
+
+    public Question(int questionText, boolean answerTrue, int ImageResIs, boolean IsCheated) {
+        mQuestionText = questionText;
+        mAnswerTrue = answerTrue;
+        mImageResIs = ImageResIs;
+        mQuestionCheated = IsCheated;
+    }
 
     public Question(int questionText, boolean answerTrue, int ImageResIs) {
         mQuestionText = questionText;
@@ -25,9 +41,9 @@ class Question {
         return mQuestionText;
     }
 
-    public void setQuestionText(int questionText) {
+    /*public void setQuestionText(int questionText) {
         mQuestionText = questionText;
-    }
+    }*/
 
     public boolean isAnswerTrue() {
         return mAnswerTrue;
